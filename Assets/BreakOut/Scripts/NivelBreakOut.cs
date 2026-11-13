@@ -87,7 +87,7 @@ public class NivelBreakOut : MonoBehaviour
         else
             mensaje = "R para reiniciar";
 
-        string modo = paleta.UsaRaton ? "Ratón" : "Stick izquierdo / teclado";
+        string modo = paleta.UsaRaton ? "Ratón" : paleta.UsaMando ? "Mando" : "Teclado";
         GUI.Label(new Rect(16, tamano + 16, Screen.width - 32, tamano + 8),
             $"{modo}   |   F1 Ratón   F2 Eje", texto);
         GUI.Label(new Rect(8, Screen.height - tamano - 12, Screen.width - 16, tamano + 8), mensaje, centro);

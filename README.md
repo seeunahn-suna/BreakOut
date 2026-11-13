@@ -2,8 +2,8 @@
 
 Abre este repositorio como proyecto en **Unity 2022.3.62f3** y carga `Assets/Scenes/Nivel1.unity`. Pulsa **Play**.
 
-- **F1** para mover la paleta con el ratón y **F2** para volver al movimiento por eje.
-- En modo eje, usa **← / →**, **A/D** o el **stick izquierdo del DualSense**. El teclado pasa por `Input.GetAxis("Horizontal")`.
+- **F1** activa el ratón. **F2**, una tecla de movimiento o un movimiento del stick vuelven al modo por eje.
+- Usa **← / →**, **A/D** o el **stick izquierdo del DualSense**. El juego cambia de control al detectar un movimiento nuevo y lo indica en pantalla. El teclado pasa por `Input.GetAxis("Horizontal")`.
 - **Espacio** o **✕ en el DualSense** para lanzar la pelota al empezar o al perder una vida.
 - **R** para reiniciar el nivel.
 
