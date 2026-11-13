@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Pelota : MonoBehaviour
 {
     [SerializeField] private NivelBreakOut nivel;
-    [SerializeField] private float velocidad = 9f;
+    [SerializeField] private float velocidad = 10.5f;
     private Rigidbody2D cuerpo;
 
     public bool EnJuego { get; private set; }
@@ -26,6 +27,16 @@ public class Pelota : MonoBehaviour
         cuerpo.simulated = true;
         cuerpo.velocity = new Vector2(0.42f, 0.91f).normalized * velocidad;
         EnJuego = true;
+    }
+
+    public void LeerLanzamiento()
+    {
+        Gamepad mando = Gamepad.current;
+        if (!EnJuego && (Input.GetKeyDown(KeyCode.Space) ||
+                        (mando != null && mando.buttonSouth.wasPressedThisFrame)))
+        {
+            Lanzar();
+        }
     }
 
     public void Detener()

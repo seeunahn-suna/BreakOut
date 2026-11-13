@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nivel: {fileID: 1875847824}
-  velocidad: 9
+  velocidad: 10.5
 --- !u!50 &314885152
 Rigidbody2D:
   serializedVersion: 4
@@ -1595,8 +1595,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 467536cb559cfec488ea53f3321e618c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocidad: 12
+  velocidad: 16
   limiteHorizontal: 7.1
+  usarRaton: 0
 --- !u!50 &1156678804
 Rigidbody2D:
   serializedVersion: 4

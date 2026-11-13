@@ -37,8 +37,7 @@ public class NivelBreakOut : MonoBehaviour
         if (!pelota.EnJuego)
         {
             pelota.Colocar(paleta.Posicion + Vector2.up * 0.52f);
-            if (Input.GetKeyDown(KeyCode.Space))
-                pelota.Lanzar();
+            pelota.LeerLanzamiento();
         }
         else if (pelota.Altura < -5.2f)
         {
@@ -84,10 +83,13 @@ public class NivelBreakOut : MonoBehaviour
         if (terminado)
             mensaje = ganado ? "Nivel completado   ·   R para volver a jugar" : "Fin de la partida   ·   R para volver a jugar";
         else if (!pelota.EnJuego)
-            mensaje = "Flechas o A/D para mover   ·   Espacio para lanzar";
+            mensaje = "Espacio o X para lanzar";
         else
             mensaje = "R para reiniciar";
 
+        string modo = paleta.UsaRaton ? "Ratón" : "Stick izquierdo / teclado";
+        GUI.Label(new Rect(16, tamano + 16, Screen.width - 32, tamano + 8),
+            $"{modo}   |   F1 Ratón   F2 Eje", texto);
         GUI.Label(new Rect(8, Screen.height - tamano - 12, Screen.width - 16, tamano + 8), mensaje, centro);
     }
 }
