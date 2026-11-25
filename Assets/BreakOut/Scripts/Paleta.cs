@@ -17,6 +17,7 @@ public class Paleta : MonoBehaviour
     private float tecladoAnterior;
     private float ultimoStickActivo;
     private bool usarMando;
+    private float bordeCampo;
 
     public Vector2 Posicion => cuerpo.position;
     public float Semiancho => transform.localScale.x / 2f;
@@ -28,6 +29,19 @@ public class Paleta : MonoBehaviour
         cuerpo = GetComponent<Rigidbody2D>();
         camara = Camera.main;
         destinoRaton = cuerpo.position.x;
+        bordeCampo = limiteHorizontal + Semiancho;
+    }
+
+    public void Preparar(Vector2 posicion, float ancho)
+    {
+        Vector3 escala = transform.localScale;
+        escala.x = ancho;
+        transform.localScale = escala;
+        limiteHorizontal = bordeCampo - Semiancho;
+        cuerpo.position = posicion;
+        cuerpo.velocity = Vector2.zero;
+        destinoRaton = posicion.x;
+        entradaHorizontal = 0f;
     }
 
     private void Update()

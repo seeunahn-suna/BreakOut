@@ -6,10 +6,12 @@ public class Pelota : MonoBehaviour
 {
     [SerializeField] private NivelBreakOut nivel;
     [SerializeField] private float velocidad = 10.5f;
+    [SerializeField] private OpcionesBreakOut opciones;
     private Rigidbody2D cuerpo;
 
     public bool EnJuego { get; private set; }
     public float Altura => cuerpo.position.y;
+    public float VelocidadActual => velocidad * (opciones == null ? 1f : opciones.MultiplicadorVelocidad);
 
     private void Awake()
     {
@@ -20,12 +22,20 @@ public class Pelota : MonoBehaviour
     public void Colocar(Vector2 posicion)
     {
         cuerpo.position = posicion;
+        if (!cuerpo.simulated)
+            transform.position = new Vector3(posicion.x, posicion.y, transform.position.z);
+    }
+
+    public void Preparar(float nuevaVelocidad)
+    {
+        velocidad = nuevaVelocidad;
+        Detener();
     }
 
     public void Lanzar()
     {
         cuerpo.simulated = true;
-        cuerpo.velocity = new Vector2(0.42f, 0.91f).normalized * velocidad;
+        cuerpo.velocity = new Vector2(0.42f, 0.91f).normalized * VelocidadActual;
         EnJuego = true;
     }
 
@@ -54,7 +64,7 @@ public class Pelota : MonoBehaviour
         Vector2 direccion = cuerpo.velocity.normalized;
         if (Mathf.Abs(direccion.y) < 0.25f)
             direccion.y = Mathf.Sign(direccion.y) * 0.25f;
-        cuerpo.velocity = direccion.normalized * velocidad;
+        cuerpo.velocity = direccion.normalized * VelocidadActual;
     }
 
     private void OnCollisionEnter2D(Collision2D choque)
@@ -65,7 +75,7 @@ public class Pelota : MonoBehaviour
         if (choque.collider.TryGetComponent(out Paleta paleta) && cuerpo.position.y > paleta.Posicion.y)
         {
             float distancia = (cuerpo.position.x - paleta.Posicion.x) / paleta.Semiancho;
-            cuerpo.velocity = new Vector2(Mathf.Clamp(distancia, -1f, 1f), 1f).normalized * velocidad;
+            cuerpo.velocity = new Vector2(Mathf.Clamp(distancia, -1f, 1f), 1f).normalized * VelocidadActual;
         }
 
         if (choque.collider.TryGetComponent(out Bloque bloque) && bloque.RecibirImpacto())
